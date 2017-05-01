@@ -1,0 +1,35 @@
+{
+  "name": "ledproject",
+  "version": "1.0.0",
+  "description": "LED Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/backendeveloper/led-project.git"
+  },
+  "keywords": [
+    "LED",
+    "Node.js",
+    "IOT"
+  ],
+  "author": "@backendeveloper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/backendeveloper/led-project/issues"
+  },
+  "homepage": "https://github.com/backendeveloper/led-project#readme",
+  "dependencies": {
+    "azure-event-hubs": "0.0.6",
+    "azure-iothub": "^1.1.7",
+    "escape-html": "^1.0.3",
+    "firebase-admin": "^4.0.3",
+    "node-schedule": "^1.1.0",
+    "nodemailer": "^2.4.1",
+    "promise": "^7.1.1",
+    "raspi-io": "8.0.1",
+    "johnny-five": "0.10.10"
+  }
+}
