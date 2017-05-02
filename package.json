@@ -26,10 +26,10 @@
     "azure-iothub": "^1.1.7",
     "escape-html": "^1.0.3",
     "firebase-admin": "^4.0.3",
+    "johnny-five": "0.10.10",
     "node-schedule": "^1.1.0",
     "nodemailer": "^2.4.1",
     "promise": "^7.1.1",
-    "raspi-io": "8.0.1",
-    "johnny-five": "0.10.10"
+    "raspi-io": "^8.0.1"
   }
 }
