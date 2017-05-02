@@ -99,7 +99,77 @@ var allCounter = 0;
 // });
 
 
+// refAll.on("child_changed", function (snapshot) {
+//   var changedPost = snapshot.val();
 
+//   if (changedPost == 3) {
+//     refBathroom.update({
+//       "led": 1
+//     });
+//     refKitchen.update({
+//       "led": 1
+//     });
+//     refSaloon.update({
+//       "led": 1
+//     });
+//   }
+
+//   if (changedPost == 0) {
+//      refBathroom.update({
+//       "led": 0
+//     });
+//     refKitchen.update({
+//       "led": 0
+//     });
+//     refSaloon.update({
+//       "led": 0
+//     });
+//   }
+// });
+
+
+// refBathroom.on("child_changed", function (snapshot) {
+//   var changedPost = snapshot.val();
+//   if (changedPost == 1) {
+//     allLedCounter(1);
+//     // ledGreen.on();
+//   } else {
+//     allLedCounter(-1);
+//     // ledGreen.off();
+//   }
+// });
+
+// refKitchen.on("child_changed", function (snapshot) {
+//   var changedPost = snapshot.val();
+//   if (changedPost == 1) {
+//     allLedCounter(1);
+//     // ledYellow.on();
+//   } else {
+//     allLedCounter(-1);
+//     // ledYellow.off();
+//   }
+// });
+
+// refSaloon.on("child_changed", function (snapshot) {
+//   var changedPost = snapshot.val();
+//   if (changedPost == 1) {
+//     allLedCounter(1);
+//     // ledRed.on();
+//   } else {
+//     allLedCounter(-1);
+//     // ledRed.off();
+//   }
+// });
+
+// var allLedCounter = function (counter) {
+//   if (allCounter == 0 && counter < 0)
+//     return;
+
+//   allCounter = allCounter + counter;
+//   refAll.update({
+//     "led": allCounter
+//   });
+// };
 
 
 
@@ -114,9 +184,7 @@ board.on("ready", function () {
 
   refAll.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
-    if (changedPost < 3) {
-      return;
-    } else if (changedPost == 3) {
+    if (changedPost == 3) {
       refBathroom.update({
         "led": 1
       });
@@ -126,7 +194,8 @@ board.on("ready", function () {
       refSaloon.update({
         "led": 1
       });
-    } else {
+    }
+    if (changedPost == 0) {
       refBathroom.update({
         "led": 0
       });
