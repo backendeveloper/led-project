@@ -16,6 +16,7 @@ var refBathroom = db.ref("lamp/bathroom");
 var refKitchen = db.ref("lamp/kitchen");
 var refSaloon = db.ref("lamp/saloon");
 var refAll = db.ref("lamp/all");
+var counter = 0;
 //  var ledBathroomRef = refLed.chield("bathroom");
 // var ledKitchenRef = refLed.chield("kitchen");
 // var ledSaloonRef = refLed.chield("saloon");
@@ -58,42 +59,44 @@ board.on("ready", function () {
   var ledRed = new five.Led("P1-15");
 
   refAll.on("child_changed", function (snapshot) {
-  var changedPost = snapshot.val();
-  if (changedPost == 1) {
-    refBathroom.update({
-      "led": 1
-    });
-    refKitchen.update({
-      "led": 1
-    });
-    refSaloon.update({
-      "led": 1
-    });
-    // ledGreen.on();
-    // ledYellow.on();
-    // ledRed.on();
-  } else {
-    refBathroom.update({
-      "led": 0
-    });
-    refKitchen.update({
-      "led": 0
-    });
-    refSaloon.update({
-      "led": 0
-    });
-    // ledGreen.off();
-    // ledYellow.off();
-    // ledRed.off();
-  }
-});
+    var changedPost = snapshot.val();
+    if (changedPost == 1) {
+      refBathroom.update({
+        "led": 1
+      });
+      refKitchen.update({
+        "led": 1
+      });
+      refSaloon.update({
+        "led": 1
+      });
+      // ledGreen.on();
+      // ledYellow.on();
+      // ledRed.on();
+    } else {
+      refBathroom.update({
+        "led": 0
+      });
+      refKitchen.update({
+        "led": 0
+      });
+      refSaloon.update({
+        "led": 0
+      });
+      // ledGreen.off();
+      // ledYellow.off();
+      // ledRed.off();
+    }
+  });
 
 
   refBathroom.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
     if (changedPost == 1) {
+      allLedCounter(1);
       ledGreen.on();
     } else {
+      allLedCounter(-1);
       ledGreen.off();
     }
   });
@@ -101,8 +104,10 @@ board.on("ready", function () {
   refKitchen.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
     if (changedPost == 1) {
+      allLedCounter(1);
       ledYellow.on();
     } else {
+      allLedCounter(-1);
       ledYellow.off();
     }
   });
@@ -110,9 +115,28 @@ board.on("ready", function () {
   refSaloon.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
     if (changedPost == 1) {
+      allLedCounter(1);
       ledRed.on();
     } else {
+      allLedCounter(-1);
       ledRed.off();
     }
   });
+
+  var allLedCounter = function (counter) {
+    if (counter < 0)
+      return;
+
+    counter = 0 + counter;
+    if (counter == 3) {
+      refAll.update({
+        "led": 1
+      });
+    }
+     if (counter == 0) {
+      refAll.update({
+        "led": 0
+      });
+    }
+  };
 });
