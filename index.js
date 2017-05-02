@@ -17,6 +17,7 @@ var refKitchen = db.ref("lamp/kitchen");
 var refSaloon = db.ref("lamp/saloon");
 var refAll = db.ref("lamp/all");
 var counter = 0;
+var allCounter = 0;
 //  var ledBathroomRef = refLed.chield("bathroom");
 // var ledKitchenRef = refLed.chield("kitchen");
 // var ledSaloonRef = refLed.chield("saloon");
@@ -44,93 +45,167 @@ var counter = 0;
 // hopperRef.update({
 //   "led": "Amazing Grace"
 // });
-
-
-
-
-
-var board = new five.Board({
-  io: new Raspi()
+refAll.on("child_changed", function (snapshot) {
+  var changedPost = snapshot.val();
+  if (changedPost == 1) {
+    refBathroom.update({
+      "led": 1
+    });
+    refKitchen.update({
+      "led": 1
+    });
+    refSaloon.update({
+      "led": 1
+    });
+  } else {
+    refBathroom.update({
+      "led": 0
+    });
+    refKitchen.update({
+      "led": 0
+    });
+    refSaloon.update({
+      "led": 0
+    });
+  }
 });
 
-board.on("ready", function () {
-  var ledGreen = new five.Led("P1-11");
-  var ledYellow = new five.Led("P1-13");
-  var ledRed = new five.Led("P1-15");
 
-  refAll.on("child_changed", function (snapshot) {
-    var changedPost = snapshot.val();
-    if (changedPost == 1) {
-      refBathroom.update({
-        "led": 1
-      });
-      refKitchen.update({
-        "led": 1
-      });
-      refSaloon.update({
-        "led": 1
-      });
-    } else {
-      refBathroom.update({
-        "led": 0
-      });
-      refKitchen.update({
-        "led": 0
-      });
-      refSaloon.update({
-        "led": 0
-      });
-    }
-  });
-
-
-  refBathroom.on("child_changed", function (snapshot) {
-    var changedPost = snapshot.val();
-    if (changedPost == 1) {
-      allLedCounter(1);
-      ledGreen.on();
-    } else {
-      allLedCounter(-1);
-      ledGreen.off();
-    }
-  });
-
-  refKitchen.on("child_changed", function (snapshot) {
-    var changedPost = snapshot.val();
-    if (changedPost == 1) {
-      allLedCounter(1);
-      ledYellow.on();
-    } else {
-      allLedCounter(-1);
-      ledYellow.off();
-    }
-  });
-
-  refSaloon.on("child_changed", function (snapshot) {
-    var changedPost = snapshot.val();
-    if (changedPost == 1) {
-      allLedCounter(1);
-      ledRed.on();
-    } else {
-      allLedCounter(-1);
-      ledRed.off();
-    }
-  });
-
-  var allLedCounter = function (counter) {
-    if (counter < 0)
-      return;
-
-    counter = 0 + counter;
-    if (counter == 3) {
-      refAll.update({
-        "led": 1
-      });
-    }
-     if (counter == 0) {
-      refAll.update({
-        "led": 0
-      });
-    }
-  };
+refBathroom.on("child_changed", function (snapshot) {
+  var changedPost = snapshot.val();
+  if (changedPost == 1) {
+    allLedCounter(1);
+    // ledGreen.on();
+  } else {
+    allLedCounter(-1);
+    // ledGreen.off();
+  }
 });
+
+refKitchen.on("child_changed", function (snapshot) {
+  var changedPost = snapshot.val();
+  if (changedPost == 1) {
+    allLedCounter(1);
+    // ledYellow.on();
+  } else {
+    allLedCounter(-1);
+    // ledYellow.off();
+  }
+});
+
+refSaloon.on("child_changed", function (snapshot) {
+  var changedPost = snapshot.val();
+  if (changedPost == 1) {
+    allLedCounter(1);
+    // ledRed.on();
+  } else {
+    allLedCounter(-1);
+    // ledRed.off();
+  }
+});
+
+var allLedCounter = function (counter) {
+  if (allCounter == 0 && counter < 0)
+    return;
+
+  allCounter = allCounter + counter;
+  if (allCounter == 3) {
+    refAll.update({
+      "led": 1
+    });
+  }
+  if (allCounter == 0) {
+    refAll.update({
+      "led": 0
+    });
+  }
+};
+
+
+
+
+// var board = new five.Board({
+//   io: new Raspi()
+// });
+
+// board.on("ready", function () {
+//   var ledGreen = new five.Led("P1-11");
+//   var ledYellow = new five.Led("P1-13");
+//   var ledRed = new five.Led("P1-15");
+
+//   refAll.on("child_changed", function (snapshot) {
+//     var changedPost = snapshot.val();
+//     if (changedPost == 1) {
+//       refBathroom.update({
+//         "led": 1
+//       });
+//       refKitchen.update({
+//         "led": 1
+//       });
+//       refSaloon.update({
+//         "led": 1
+//       });
+//     } else {
+//       refBathroom.update({
+//         "led": 0
+//       });
+//       refKitchen.update({
+//         "led": 0
+//       });
+//       refSaloon.update({
+//         "led": 0
+//       });
+//     }
+//   });
+
+
+//   refBathroom.on("child_changed", function (snapshot) {
+//     var changedPost = snapshot.val();
+//     if (changedPost == 1) {
+//       allLedCounter(1);
+//       ledGreen.on();
+//     } else {
+//       allLedCounter(-1);
+//       ledGreen.off();
+//     }
+//   });
+
+//   refKitchen.on("child_changed", function (snapshot) {
+//     var changedPost = snapshot.val();
+//     if (changedPost == 1) {
+//       allLedCounter(1);
+//       ledYellow.on();
+//     } else {
+//       allLedCounter(-1);
+//       ledYellow.off();
+//     }
+//   });
+
+//   refSaloon.on("child_changed", function (snapshot) {
+//     var changedPost = snapshot.val();
+//     if (changedPost == 1) {
+//       allLedCounter(1);
+//       ledRed.on();
+//     } else {
+//       allLedCounter(-1);
+//       ledRed.off();
+//     }
+//   });
+
+//   var allLedCounter = function (counter) {
+//     if (counter < 0)
+//       return;
+
+//     counter = 0 + counter;
+//     if (counter == 3) {
+//       refAll.update({
+//         "led": 1
+//       });
+//     }
+//      if (counter == 0) {
+//       refAll.update({
+//         "led": 0
+//       });
+//     }
+//   };
+// });
