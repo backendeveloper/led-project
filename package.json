@@ -25,7 +25,7 @@
     "azure-event-hubs": "0.0.6",
     "azure-iothub": "^1.1.7",
     "escape-html": "^1.0.3",
-    "firebase-admin": "^4.0.3",
+    "firebase-admin": "^4.2.1",
     "johnny-five": "0.10.10",
     "node-schedule": "^1.1.0",
     "nodemailer": "^2.4.1",
