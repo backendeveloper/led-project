@@ -29,13 +29,21 @@ board.on("ready", function () {
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
   var multi = new five.Multi({
-    controller: "BME280"
+    controller: "BME280",
+    freq: 1000
   });
 
   board.repl.inject({
     piezo: piezo,
     multi: multi
   });
+
+  //   new five.Thermometer({
+  //   pin: "A0",
+  //   toCelsius: function(raw) { // optional
+  //     return (raw / sensivity) + offset;
+  //   }
+  // });
 
   multi.on("data", function () {
     console.log("Thermometer");
@@ -50,11 +58,6 @@ board.on("ready", function () {
 
     console.log("Hygrometer");
     console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-    console.log("--------------------------------------");
-
-    console.log("Altimeter");
-    console.log("  feet         : ", this.altimeter.feet);
-    console.log("  meters       : ", this.altimeter.meters);
     console.log("--------------------------------------");
   });
 
