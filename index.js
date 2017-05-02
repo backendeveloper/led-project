@@ -181,6 +181,24 @@ board.on("ready", function () {
   var ledGreen = new five.Led("P1-11");
   var ledYellow = new five.Led("P1-13");
   var ledRed = new five.Led("P1-15");
+  var piezo = new five.Piezo("P1-12");
+
+  board.repl.inject({
+    piezo: piezo
+  });
+
+
+
+  var maestro = function () {
+    piezo.play({
+      // song is composed by a string of notes
+      // a default beat is set, and the default octave is used
+      // any invalid note is read as "no note"
+      song: "C D F D A - A A A A G G G G - - C D F D G - G G G G F F F F - -",
+      beats: 1 / 4,
+      tempo: 50
+    });
+  }
 
   refAll.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
@@ -194,6 +212,7 @@ board.on("ready", function () {
       refSaloon.update({
         "led": 1
       });
+      maestro();
     }
     if (changedPost == 0) {
       refBathroom.update({
@@ -207,7 +226,6 @@ board.on("ready", function () {
       });
     }
   });
-
 
   refBathroom.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
@@ -251,4 +269,54 @@ board.on("ready", function () {
       "led": allCounter
     });
   };
+
 });
+
+// board.on("ready", function() {
+//   // Creates a piezo object and defines the pin to be used for the signal
+//   var piezo = new five.Piezo("P1-12");
+
+//   // Injects the piezo into the repl
+//   board.repl.inject({
+//     piezo: piezo
+//   });
+
+//   // Plays a song
+//   piezo.play({
+//     // song is composed by an array of pairs of notes and beats
+//     // The first argument is the note (null means "no note")
+//     // The second argument is the length of time (beat) of the note (or non-note)
+//     song: [
+//       ["C4", 1 / 4],
+//       ["D4", 1 / 4],
+//       ["F4", 1 / 4],
+//       ["D4", 1 / 4],
+//       ["A4", 1 / 4],
+//       [null, 1 / 4],
+//       ["A4", 1],
+//       ["G4", 1],
+//       [null, 1 / 2],
+//       ["C4", 1 / 4],
+//       ["D4", 1 / 4],
+//       ["F4", 1 / 4],
+//       ["D4", 1 / 4],
+//       ["G4", 1 / 4],
+//       [null, 1 / 4],
+//       ["G4", 1],
+//       ["F4", 1],
+//       [null, 1 / 2]
+//     ],
+//     tempo: 100
+//   });
+
+//   // Plays the same song with a string representation
+//   piezo.play({
+//     // song is composed by a string of notes
+//     // a default beat is set, and the default octave is used
+//     // any invalid note is read as "no note"
+//     song: "C D F D A - A A A A G G G G - - C D F D G - G G G G F F F F - -",
+//     beats: 1 / 4,
+//     tempo: 100
+//   });
+
+// });
