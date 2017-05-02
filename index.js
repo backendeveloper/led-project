@@ -34,10 +34,9 @@ board.on("ready", function () {
 
   board.repl.inject({
     piezo: piezo,
-    led: led,
     multi: multi
   });
-  
+
   multi.on("data", function () {
     console.log("Thermometer");
     console.log("  celsius      : ", this.thermometer.celsius);
