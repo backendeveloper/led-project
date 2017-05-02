@@ -15,6 +15,7 @@ var db = admin.database();
 var refBathroom = db.ref("lamp/bathroom");
 var refKitchen = db.ref("lamp/kitchen");
 var refSaloon = db.ref("lamp/saloon");
+var refAll = db.ref("lamp/all");
 //  var ledBathroomRef = refLed.chield("bathroom");
 // var ledKitchenRef = refLed.chield("kitchen");
 // var ledSaloonRef = refLed.chield("saloon");
@@ -38,6 +39,11 @@ var refSaloon = db.ref("lamp/saloon");
 
 
 
+// var hopperRef = refAll.child("led");
+// hopperRef.update({
+//   "led": "Amazing Grace"
+// });
+
 
 
 
@@ -51,6 +57,36 @@ board.on("ready", function () {
   var ledYellow = new five.Led("P1-13");
   var ledRed = new five.Led("P1-15");
 
+  refAll.on("child_changed", function (snapshot) {
+  var changedPost = snapshot.val();
+  if (changedPost == 1) {
+    refBathroom.update({
+      "led": 1
+    });
+    refKitchen.update({
+      "led": 1
+    });
+    refSaloon.update({
+      "led": 1
+    });
+    // ledGreen.on();
+    // ledYellow.on();
+    // ledRed.on();
+  } else {
+    refBathroom.update({
+      "led": 0
+    });
+    refKitchen.update({
+      "led": 0
+    });
+    refSaloon.update({
+      "led": 0
+    });
+    // ledGreen.off();
+    // ledYellow.off();
+    // ledRed.off();
+  }
+});
 
 
   refBathroom.on("child_changed", function (snapshot) {
@@ -79,11 +115,4 @@ board.on("ready", function () {
       ledRed.off();
     }
   });
-
-  // ledGreen.blink();
-  // if (ledGreen.on){
-  //   ledYellow.blink();
-  //   if (ledYellow.on) {
-  //     ledRed.blink();
-  //   }
 });
