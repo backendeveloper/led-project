@@ -7,9 +7,16 @@ var board = new five.Board({
 });
 
 board.on("ready", function() {
-  var led = new five.Led("P1-13");
-  
-  led.off();	
-  led.blink();
-});
+  var ledGreen = new five.Led("P1-11");
+  var ledYellow = new five.Led("P1-13");
+  var ledRed = new five.Led("P1-15");
 
+  ledGreen.blink();
+  if (ledGreen.on){
+    ledYellow.blink();
+    if (ledYellow.on) {
+      ledRed.blink();
+    }
+  }
+
+});
