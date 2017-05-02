@@ -114,7 +114,9 @@ board.on("ready", function () {
 
   refAll.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
-    if (changedPost == 1) {
+    if (changedPost < 3) {
+      return;
+    } else if (changedPost == 3) {
       refBathroom.update({
         "led": 1
       });
@@ -176,15 +178,8 @@ board.on("ready", function () {
       return;
 
     allCounter = allCounter + counter;
-    if (allCounter == 3) {
-      refAll.update({
-        "led": 1
-      });
-    }
-    if (allCounter == 0) {
-      refAll.update({
-        "led": 0
-      });
-    }
+    refAll.update({
+      "led": allCounter
+    });
   };
 });
