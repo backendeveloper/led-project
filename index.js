@@ -70,9 +70,6 @@ board.on("ready", function () {
       refSaloon.update({
         "led": 1
       });
-      // ledGreen.on();
-      // ledYellow.on();
-      // ledRed.on();
     } else {
       refBathroom.update({
         "led": 0
@@ -83,9 +80,6 @@ board.on("ready", function () {
       refSaloon.update({
         "led": 0
       });
-      // ledGreen.off();
-      // ledYellow.off();
-      // ledRed.off();
     }
   });
 
