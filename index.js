@@ -4,7 +4,7 @@ var five = require("johnny-five");
 var Raspi = require("raspi-io");
 var admin = require("firebase-admin");
 
-var serviceAccount = require("./smarthome-d94d7-firebase-adminsdk-bw5qa-995d0a6dd0");
+var serviceAccount = require("./smarthome-d94d7-firebase-adminsdk-bw5qa-60aedc44f9");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -16,7 +16,6 @@ var refBathroom = db.ref("lamp/bathroom");
 var refKitchen = db.ref("lamp/kitchen");
 var refSaloon = db.ref("lamp/saloon");
 var refAll = db.ref("lamp/all");
-var refFrequency = db.ref("climate/frequency");
 var counter = 0;
 var allCounter = 0;
 
