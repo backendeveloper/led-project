@@ -19,27 +19,22 @@ var refAll = db.ref("lamp/all");
 var refFreq = db.ref("climate/frequency");
 var counter = 0;
 var allCounter = 0;
+var _freq = 10000;
 // var changedFreq = 5000;
 
 
+// refFreq.on("child_changed", function (snapshot) {
+//   var changedPost = snapshot.val();
+// });
 refFreq.on("child_changed", function (snapshot) {
-  var changedPost = snapshot.val();
+  _freq = snapshot.val();
+  multis(_freq);
 });
-
 // refFreq.on("value", function (snapshot) {
 //   var changedPost = snapshot.val().value;
 // });
 
 
-var myObject = {
-  firstName: "John",
-  lastName: "Doe",
-  fullName: function () {
-    this.fullName = 1000;
-    return this;
-  }
-}
-var asd = myObject.fullName().fullName;
 
 var board = new five.Board({
   io: new Raspi()
@@ -50,35 +45,33 @@ board.on("ready", function () {
   var ledYellow = new five.Led("P1-13");
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
-  var multis = function() {
-    var _freq = 10000;
-    refFreq.on("child_changed", function (snapshot) {
-      _freq = snapshot.val();
-    });
+  var multis = function (_freq) {
+    if (_freq == null || _freq === undefined)
+      var _freq = 10000;
     var multi = new five.Multi({
       controller: "BME280",
       freq: _freq
     });
     multi.on("data", function () {
-    console.log("Thermometer");
-    console.log("  celsius      : ", this.thermometer.celsius);
-    console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-    console.log("  kelvin       : ", this.thermometer.kelvin);
-    console.log("--------------------------------------");
+      console.log("Thermometer");
+      console.log("  celsius      : ", this.thermometer.celsius);
+      console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
+      console.log("  kelvin       : ", this.thermometer.kelvin);
+      console.log("--------------------------------------");
 
-    console.log("Barometer");
-    console.log("  pressure     : ", this.barometer.pressure);
-    console.log("--------------------------------------");
+      console.log("Barometer");
+      console.log("  pressure     : ", this.barometer.pressure);
+      console.log("--------------------------------------");
 
-    console.log("Hygrometer");
-    console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-    console.log("--------------------------------------");
+      console.log("Hygrometer");
+      console.log("  humidity     : ", this.hygrometer.relativeHumidity);
+      console.log("--------------------------------------");
 
-    console.log("Altimeter");
-    console.log("  feet         : ", this.altimeter.feet);
-    console.log("  meters       : ", this.altimeter.meters);
-    console.log("--------------------------------------");
-  });
+      console.log("Altimeter");
+      console.log("  feet         : ", this.altimeter.feet);
+      console.log("  meters       : ", this.altimeter.meters);
+      console.log("--------------------------------------");
+    });
   }
 
   // var multi = new five.Multi({
