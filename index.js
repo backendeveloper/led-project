@@ -43,8 +43,8 @@ board.on("ready", function () {
       controller: "BME280",
       freq: value
     });
-  }
-  temp(multi);
+    temp(multi);
+  }  
 
   board.repl.inject({
     piezo: piezo
