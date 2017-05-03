@@ -42,13 +42,14 @@ board.on("ready", function () {
   var piezo = new five.Piezo("P1-12");
   var multi = new five.Multi({
     controller: "BME280",
-    freq: function () {
-      var changedFreq = 10000;
-      // refFreq.on("child_changed", function (snapshot) {
-      //   changedFreq = snapshot.val();
-      // });
-      return 10000;
-    }
+    freq: 10000
+    // freq: function () {
+    //   // var changedFreq = 10000;
+    //   // refFreq.on("child_changed", function (snapshot) {
+    //   //   changedFreq = snapshot.val();
+    //   // });
+    //   return 10000;
+    // }
   });
   // board.repl.inject({
   //   piezo: piezo
