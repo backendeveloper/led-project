@@ -57,7 +57,7 @@ board.on("ready", function () {
       // refFreq.on("child_changed", function (snapshot) {
       //   changedFreq = snapshot.val();
       // });
-      this.freq = 1000;
+      this.freq = 10000;
       return this;
     }
   });
