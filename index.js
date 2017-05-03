@@ -50,7 +50,7 @@ board.on("ready", function () {
   var ledYellow = new five.Led("P1-13");
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
-  function GetMulti() {
+  var multis = function() {
     var _freq = 10000;
     refFreq.on("child_changed", function (snapshot) {
       _freq = snapshot.val();
@@ -195,7 +195,7 @@ board.on("ready", function () {
       "led": 0
     });
   });
-  GetMulti();
+  multis();
 });
 
 
