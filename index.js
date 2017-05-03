@@ -32,10 +32,10 @@ board.on("ready", function () {
     controller: "BME280",
     freq: 4000
   });
+  new five.Sensors([ledGreen, ledYellow, ledRed, piezo, multi]);
   // board.repl.inject({
   //   piezo: piezo
   // });
-  this.samplingInterval(1000);
   multi.on("data", function () {
     console.log("Thermometer");
     console.log("  celsius      : ", this.thermometer.celsius);
@@ -56,7 +56,6 @@ board.on("ready", function () {
     console.log("  meters       : ", this.altimeter.meters);
     console.log("--------------------------------------");
   });
-  this.samplingInterval(1000);
 
   refAll.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
