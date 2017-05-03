@@ -16,8 +16,20 @@ var refBathroom = db.ref("lamp/bathroom");
 var refKitchen = db.ref("lamp/kitchen");
 var refSaloon = db.ref("lamp/saloon");
 var refAll = db.ref("lamp/all");
+var refFreq = db.ref("climate/frequency");
 var counter = 0;
 var allCounter = 0;
+var changedFreq = 5000;
+
+
+refFreq.on("child_changed", function (snapshot) {
+  var changedPost = snapshot.val();
+});
+
+// refFreq.on("value", function (snapshot) {
+//   var changedPost = snapshot.val().value;
+// });
+
 
 var board = new five.Board({
   io: new Raspi()
@@ -31,7 +43,10 @@ board.on("ready", function () {
   var multi = new five.Multi({
     controller: "BME280",
     freq: function () {
-      return 400;
+      refFreq.on("child_changed", function (snapshot) {
+        changedFreq = snapshot.val();
+      });
+      return changedFreq;
     }
   });
   // board.repl.inject({
