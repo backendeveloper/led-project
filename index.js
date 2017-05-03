@@ -189,6 +189,11 @@ board.on("ready", function () {
     _freq = snapshot.val();
     multis(_freq);
   });
+
+   refFreq.on("value", function (snapshot) {
+    _freq = snapshot.val().value;
+    multis(_freq);
+  });
 });
 
 
