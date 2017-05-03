@@ -43,6 +43,7 @@ board.on("ready", function () {
   var multi = new five.Multi({
     controller: "BME280",
     freq: function () {
+      var changedFreq = 5000;
       refFreq.on("child_changed", function (snapshot) {
         changedFreq = snapshot.val();
       });
