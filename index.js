@@ -195,6 +195,7 @@ board.on("ready", function () {
       "led": 0
     });
   });
+  GetMulti();
 });
 
 
