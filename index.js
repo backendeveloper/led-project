@@ -26,10 +26,7 @@ var _freq = 10000;
 // refFreq.on("child_changed", function (snapshot) {
 //   var changedPost = snapshot.val();
 // });
-refFreq.on("child_changed", function (snapshot) {
-  _freq = snapshot.val();
-  multis(_freq);
-});
+
 // refFreq.on("value", function (snapshot) {
 //   var changedPost = snapshot.val().value;
 // });
@@ -188,7 +185,10 @@ board.on("ready", function () {
       "led": 0
     });
   });
-  multis();
+  refFreq.on("child_changed", function (snapshot) {
+    _freq = snapshot.val();
+    multis(_freq);
+  });
 });
 
 
