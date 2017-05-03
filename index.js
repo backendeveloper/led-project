@@ -28,10 +28,35 @@ board.on("ready", function () {
   var ledYellow = new five.Led("P1-13");
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
-
+  var multi = new five.Multi({
+    controller: "BME280",
+    freq: 4000
+  });
   board.repl.inject({
     piezo: piezo
   });
+
+  multi.on("data", function () {
+    console.log("Thermometer");
+    console.log("  celsius      : ", this.thermometer.celsius);
+    console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
+    console.log("  kelvin       : ", this.thermometer.kelvin);
+    console.log("--------------------------------------");
+
+    console.log("Barometer");
+    console.log("  pressure     : ", this.barometer.pressure);
+    console.log("--------------------------------------");
+
+    console.log("Hygrometer");
+    console.log("  humidity     : ", this.hygrometer.relativeHumidity);
+    console.log("--------------------------------------");
+
+    console.log("Altimeter");
+    console.log("  feet         : ", this.altimeter.feet);
+    console.log("  meters       : ", this.altimeter.meters);
+    console.log("--------------------------------------");
+  });
+  this.samplingInterval(1000);
 
   refAll.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
@@ -113,6 +138,12 @@ board.on("ready", function () {
       tempo: 500
     });
   };
+
+  this.on("exit", function () {
+    refAll.update({
+      "led": 3
+    });
+  });
 });
 
 
