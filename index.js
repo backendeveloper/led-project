@@ -20,6 +20,14 @@ var refFrequency = db.ref("climate/frequency");
 var counter = 0;
 var allCounter = 0;
 
+var getFreqValue = function () {
+  refFrequency.on("child_changed", function (snapshot) {
+    var freq = snapshot.val();
+    getFreq(freq);
+  });
+  getFreq(1000);
+};
+
 var board = new five.Board({
   io: new Raspi()
 });
@@ -29,11 +37,14 @@ board.on("ready", function () {
   var ledYellow = new five.Led("P1-13");
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
-  var getFreqValue = getFreq();
-  var multi = new five.Multi({
-    controller: "BME280",
-    freq: getFreqValue
-  });
+  getFreqValue();
+  function getFreq(freqParameter) {
+    var multi = new five.Multi({
+      controller: "BME280",
+      freq: freqParameter
+    });
+  }
+
 
   board.repl.inject({
     piezo: piezo
@@ -135,33 +146,24 @@ board.on("ready", function () {
       tempo: 500
     });
   };
-
-
-  var getFreq = function () {
-    refFrequency.on("child_changed", function (snapshot) {
-      var freq = snapshot.val();
-      return freq;
-    });
-  };
-
-  // var tempStart = setInterval(function () {
-  //   multi.on("data", function () {
-  //     console.log("Thermometer");
-  //     console.log("  celsius      : ", this.thermometer.celsius);
-  //     console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-  //     console.log("  kelvin       : ", this.thermometer.kelvin);
-  //     console.log("--------------------------------------");
-
-  //     console.log("Barometer");
-  //     console.log("  pressure     : ", this.barometer.pressure);
-  //     console.log("--------------------------------------");
-
-  //     console.log("Hygrometer");
-  //     console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-  //     console.log("--------------------------------------");
-  //   });
-  // }, 5000);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // board.on("ready", function () {
