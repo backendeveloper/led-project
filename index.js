@@ -135,6 +135,7 @@ board.on("ready", function () {
       beats: 1 / 4,
       tempo: 500
     });
+    tempStart();
   }
 
   var tempStart = setInterval(function () {
