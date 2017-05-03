@@ -30,20 +30,13 @@ board.on("ready", function () {
   var piezo = new five.Piezo("P1-12");
   var multi = new five.Multi({
     controller: "BME280",
-    freq: 100000
+    freq: 5000
   });
 
   board.repl.inject({
     piezo: piezo,
     multi: multi
   });
-
-  //   new five.Thermometer({
-  //   pin: "A0",
-  //   toCelsius: function(raw) { // optional
-  //     return (raw / sensivity) + offset;
-  //   }
-  // });
 
   multi.on("data", function () {
     console.log("Thermometer");
@@ -60,6 +53,8 @@ board.on("ready", function () {
     console.log("  humidity     : ", this.hygrometer.relativeHumidity);
     console.log("--------------------------------------");
   });
+
+
 
   refAll.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
@@ -141,32 +136,50 @@ board.on("ready", function () {
       tempo: 500
     });
   }
+
+  var tempStart = setInterval(function () {
+    multi.on("data", function () {
+      console.log("Thermometer");
+      console.log("  celsius      : ", this.thermometer.celsius);
+      console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
+      console.log("  kelvin       : ", this.thermometer.kelvin);
+      console.log("--------------------------------------");
+
+      console.log("Barometer");
+      console.log("  pressure     : ", this.barometer.pressure);
+      console.log("--------------------------------------");
+
+      console.log("Hygrometer");
+      console.log("  humidity     : ", this.hygrometer.relativeHumidity);
+      console.log("--------------------------------------");
+    });
+  }, 5000);
 });
 
 
-board.on("ready", function () {
-  var multi = new five.Multi({
-    controller: "BME280"
-  });
+// board.on("ready", function () {
+//   var multi = new five.Multi({
+//     controller: "BME280"
+//   });
 
-  multi.on("data", function () {
-    console.log("Thermometer");
-    console.log("  celsius      : ", this.thermometer.celsius);
-    console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-    console.log("  kelvin       : ", this.thermometer.kelvin);
-    console.log("--------------------------------------");
+//   multi.on("data", function () {
+//     console.log("Thermometer");
+//     console.log("  celsius      : ", this.thermometer.celsius);
+//     console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
+//     console.log("  kelvin       : ", this.thermometer.kelvin);
+//     console.log("--------------------------------------");
 
-    console.log("Barometer");
-    console.log("  pressure     : ", this.barometer.pressure);
-    console.log("--------------------------------------");
+//     console.log("Barometer");
+//     console.log("  pressure     : ", this.barometer.pressure);
+//     console.log("--------------------------------------");
 
-    console.log("Hygrometer");
-    console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-    console.log("--------------------------------------");
+//     console.log("Hygrometer");
+//     console.log("  humidity     : ", this.hygrometer.relativeHumidity);
+//     console.log("--------------------------------------");
 
-    console.log("Altimeter");
-    console.log("  feet         : ", this.altimeter.feet);
-    console.log("  meters       : ", this.altimeter.meters);
-    console.log("--------------------------------------");
-  });
-});
+//     console.log("Altimeter");
+//     console.log("  feet         : ", this.altimeter.feet);
+//     console.log("  meters       : ", this.altimeter.meters);
+//     console.log("--------------------------------------");
+//   });
+// });
