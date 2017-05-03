@@ -19,7 +19,7 @@ var refAll = db.ref("lamp/all");
 var refFreq = db.ref("climate/frequency");
 var counter = 0;
 var allCounter = 0;
-var _freq = 10000;
+var _freq = 5000;
 // var changedFreq = 5000;
 
 
@@ -44,7 +44,7 @@ board.on("ready", function () {
   var piezo = new five.Piezo("P1-12");
   var multis = function (_freq) {
     if (_freq == null || _freq === undefined)
-      var _freq = 10000;
+      var _freq = 5000;
     var multi = new five.Multi({
       controller: "BME280",
       freq: _freq
