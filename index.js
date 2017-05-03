@@ -30,7 +30,9 @@ board.on("ready", function () {
   var piezo = new five.Piezo("P1-12");
   var multi = new five.Multi({
     controller: "BME280",
-    freq: 4000
+    freq: function () {
+      return 400;
+    }
   });
   // board.repl.inject({
   //   piezo: piezo
@@ -139,7 +141,7 @@ board.on("ready", function () {
 
   this.on("exit", function () {
     refAll.update({
-      "led": 3
+      "led": 0
     });
   });
 });
