@@ -30,9 +30,10 @@ board.on("ready", function () {
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
   var value = 1000;
+  var multi;
   getFreq(value);
   function getFreq(value) {
-    var multi = new five.Multi({
+    multi = new five.Multi({
       controller: "BME280",
       freq: value
     });
