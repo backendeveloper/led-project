@@ -20,14 +20,6 @@ var refFrequency = db.ref("climate/frequency");
 var counter = 0;
 var allCounter = 0;
 
-var getFreqValue = function () {
-  refFrequency.on("child_changed", function (snapshot) {
-    var freq = snapshot.val();
-    getFreq(freq);
-  });
-  getFreq(1000);
-};
-
 var board = new five.Board({
   io: new Raspi()
 });
@@ -37,11 +29,12 @@ board.on("ready", function () {
   var ledYellow = new five.Led("P1-13");
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
-  getFreqValue();
-  function getFreq(freqParameter) {
+  var value = getFreqValue();
+  getFreq(value);
+  function getFreq(value) {
     var multi = new five.Multi({
       controller: "BME280",
-      freq: freqParameter
+      freq: value
     });
   }
 
@@ -91,6 +84,11 @@ board.on("ready", function () {
         "led": 0
       });
     }
+  });
+
+  refFrequency.on("child_changed", function (snapshot) {
+    var changedPost = snapshot.val();
+    getFreq(changedPost);
   });
 
   refBathroom.on("child_changed", function (snapshot) {
@@ -146,6 +144,10 @@ board.on("ready", function () {
       tempo: 500
     });
   };
+
+  var getFreqValue = function () {
+    return 1000;
+  }
 });
 
 
