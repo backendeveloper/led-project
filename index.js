@@ -31,6 +31,16 @@ refFreq.on("child_changed", function (snapshot) {
 // });
 
 
+// var myObject = {
+//   firstName: "John",
+//   lastName: "Doe",
+//   fullName: function () {
+//     this.fullName = 1000;
+//     return this;
+//   }
+// }
+// var asd = myObject.fullName();
+
 var board = new five.Board({
   io: new Raspi()
 });
@@ -41,18 +51,15 @@ board.on("ready", function () {
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
   var multi = new five.Multi({
-    // controller: "BME280",
-    controller: function() {
-      return "BME280";
-    },
-    freq: 10000
-    // freq: function () {
-    //   // var changedFreq = 10000;
-    //   // refFreq.on("child_changed", function (snapshot) {
-    //   //   changedFreq = snapshot.val();
-    //   // });
-    //   return 10000;
-    // }
+    controller: "BME280",
+    freq: function () {
+      // var changedFreq = 10000;
+      // refFreq.on("child_changed", function (snapshot) {
+      //   changedFreq = snapshot.val();
+      // });
+      this.freq = 1000;
+      return this;
+    }
   });
   // board.repl.inject({
   //   piezo: piezo
