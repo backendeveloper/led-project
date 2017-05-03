@@ -44,9 +44,9 @@ board.on("ready", function () {
     controller: "BME280",
     freq: function () {
       var changedFreq = 5000;
-      refFreq.on("child_changed", function (snapshot) {
-        changedFreq = snapshot.val();
-      });
+      // refFreq.on("child_changed", function (snapshot) {
+      //   changedFreq = snapshot.val();
+      // });
       return changedFreq;
     }
   });
