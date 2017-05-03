@@ -32,10 +32,10 @@ board.on("ready", function () {
     controller: "BME280",
     freq: 4000
   });
-  board.repl.inject({
-    piezo: piezo
-  });
-
+  // board.repl.inject({
+  //   piezo: piezo
+  // });
+  this.samplingInterval(1000);
   multi.on("data", function () {
     console.log("Thermometer");
     console.log("  celsius      : ", this.thermometer.celsius);
