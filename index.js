@@ -19,10 +19,9 @@ var refAll = db.ref("lamp/all");
 var refFrequency = db.ref("climate/frequency");
 var counter = 0;
 var allCounter = 0;
-this.freq = 5000;
 
 var board = new five.Board({
-  io: new Raspi() 
+  io: new Raspi()
 });
 
 board.on("ready", function () {
@@ -30,9 +29,10 @@ board.on("ready", function () {
   var ledYellow = new five.Led("P1-13");
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
+  var getFreqValue = getFreq();
   var multi = new five.Multi({
     controller: "BME280",
-    freq: this.freq 
+    freq: getFreqValue
   });
 
   board.repl.inject({
@@ -53,7 +53,7 @@ board.on("ready", function () {
     console.log("Hygrometer");
     console.log("  humidity     : ", this.hygrometer.relativeHumidity);
     console.log("--------------------------------------");
-    });
+  });
 
   refAll.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
@@ -136,9 +136,13 @@ board.on("ready", function () {
     });
   };
 
-  refFrequency.on("child_changed", function (snapshot) {
-    this.freq = snapshot.val();
-  });
+
+  var getFreq = function () {
+    refFrequency.on("child_changed", function (snapshot) {
+      var freq = snapshot.val();
+      return freq;
+    });
+  };
 
   // var tempStart = setInterval(function () {
   //   multi.on("data", function () {
