@@ -38,21 +38,21 @@ board.on("ready", function () {
     multi: multi
   });
 
-  multi.on("data", function () {
-    console.log("Thermometer");
-    console.log("  celsius      : ", this.thermometer.celsius);
-    console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-    console.log("  kelvin       : ", this.thermometer.kelvin);
-    console.log("--------------------------------------");
+  // multi.on("data", function () {
+  //   console.log("Thermometer");
+  //   console.log("  celsius      : ", this.thermometer.celsius);
+  //   console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
+  //   console.log("  kelvin       : ", this.thermometer.kelvin);
+  //   console.log("--------------------------------------");
 
-    console.log("Barometer");
-    console.log("  pressure     : ", this.barometer.pressure);
-    console.log("--------------------------------------");
+  //   console.log("Barometer");
+  //   console.log("  pressure     : ", this.barometer.pressure);
+  //   console.log("--------------------------------------");
 
-    console.log("Hygrometer");
-    console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-    console.log("--------------------------------------");
-  });
+  //   console.log("Hygrometer");
+  //   console.log("  humidity     : ", this.hygrometer.relativeHumidity);
+  //   console.log("--------------------------------------");
+  // });
 
 
 
