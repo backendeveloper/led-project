@@ -16,8 +16,10 @@ var refBathroom = db.ref("lamp/bathroom");
 var refKitchen = db.ref("lamp/kitchen");
 var refSaloon = db.ref("lamp/saloon");
 var refAll = db.ref("lamp/all");
+var refFrequency = db.ref("climate/frequency");
 var counter = 0;
 var allCounter = 0;
+this.freq = 5000;
 
 var board = new five.Board({
   io: new Raspi() 
@@ -30,7 +32,7 @@ board.on("ready", function () {
   var piezo = new five.Piezo("P1-12");
   var multi = new five.Multi({
     controller: "BME280",
-    freq: 5000
+    freq: this.freq 
   });
 
   board.repl.inject({
@@ -132,8 +134,11 @@ board.on("ready", function () {
       beats: 1 / 4,
       tempo: 500
     });
-    // tempStart();
-  }
+  };
+
+  refFrequency.on("child_changed", function (snapshot) {
+    this.freq = snapshot.val();
+  });
 
   // var tempStart = setInterval(function () {
   //   multi.on("data", function () {
