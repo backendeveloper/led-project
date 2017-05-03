@@ -28,10 +28,10 @@ board.on("ready", function () {
   var ledYellow = new five.Led("P1-13");
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
-  var multi = new five.Multi({
-    controller: "BME280",
-    freq: 5000
-  });
+  // var multi = new five.Multi({
+  //   controller: "BME280",
+  //   freq: 5000
+  // });
 
   board.repl.inject({
     piezo: piezo
