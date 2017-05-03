@@ -135,26 +135,26 @@ board.on("ready", function () {
       beats: 1 / 4,
       tempo: 500
     });
-    tempStart();
+    // tempStart();
   }
 
-  var tempStart = setInterval(function () {
-    multi.on("data", function () {
-      console.log("Thermometer");
-      console.log("  celsius      : ", this.thermometer.celsius);
-      console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-      console.log("  kelvin       : ", this.thermometer.kelvin);
-      console.log("--------------------------------------");
+  // var tempStart = setInterval(function () {
+  //   multi.on("data", function () {
+  //     console.log("Thermometer");
+  //     console.log("  celsius      : ", this.thermometer.celsius);
+  //     console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
+  //     console.log("  kelvin       : ", this.thermometer.kelvin);
+  //     console.log("--------------------------------------");
 
-      console.log("Barometer");
-      console.log("  pressure     : ", this.barometer.pressure);
-      console.log("--------------------------------------");
+  //     console.log("Barometer");
+  //     console.log("  pressure     : ", this.barometer.pressure);
+  //     console.log("--------------------------------------");
 
-      console.log("Hygrometer");
-      console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-      console.log("--------------------------------------");
-    });
-  }, 5000);
+  //     console.log("Hygrometer");
+  //     console.log("  humidity     : ", this.hygrometer.relativeHumidity);
+  //     console.log("--------------------------------------");
+  //   });
+  // }, 5000);
 });
 
 
