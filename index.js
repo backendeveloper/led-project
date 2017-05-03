@@ -20,12 +20,6 @@ var refFrequency = db.ref("climate/frequency");
 var counter = 0;
 var allCounter = 0;
 
-refFrequency.on("child_changed", function (snapshot) {
-  var changedPost = snapshot.val();
-  getFreq(changedPost);
-});
-
-
 var board = new five.Board({
   io: new Raspi()
 });
@@ -36,35 +30,32 @@ board.on("ready", function () {
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
   var value = 1000;
-  var multi;
-  getFreq(value);
-  function getFreq(value) {
-    multi = new five.Multi({
-      controller: "BME280",
-      freq: value
-    });
-    temp(multi);
-  }  
+  var multi = new five.Multi({
+    controller: "BME280",
+    freq: value
+  });
+
 
   board.repl.inject({
     piezo: piezo
   });
 
-  // multi.on("data", function () {
-  //   console.log("Thermometer");
-  //   console.log("  celsius      : ", this.thermometer.celsius);
-  //   console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-  //   console.log("  kelvin       : ", this.thermometer.kelvin);
-  //   console.log("--------------------------------------");
+  multi.on("data", function () {
+    console.log("Thermometer");
+    console.log("  celsius      : ", this.thermometer.celsius);
+    console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
+    console.log("  kelvin       : ", this.thermometer.kelvin);
+    console.log("--------------------------------------");
 
-  //   console.log("Barometer");
-  //   console.log("  pressure     : ", this.barometer.pressure);
-  //   console.log("--------------------------------------");
+    console.log("Barometer");
+    console.log("  pressure     : ", this.barometer.pressure);
+    console.log("--------------------------------------");
 
-  //   console.log("Hygrometer");
-  //   console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-  //   console.log("--------------------------------------");
-  // });
+    console.log("Hygrometer");
+    console.log("  humidity     : ", this.hygrometer.relativeHumidity);
+    console.log("--------------------------------------");
+  });
+  multi.off();
 
   refAll.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
@@ -149,24 +140,6 @@ board.on("ready", function () {
       song: "C D F D A - A A A A G G G G - - C D F D G - G G G G F F F F - -",
       beats: 1 / 4,
       tempo: 500
-    });
-  };
-
-  var temp = function (multi) {
-    multi.on("data", function () {
-      console.log("Thermometer");
-      console.log("  celsius      : ", this.thermometer.celsius);
-      console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-      console.log("  kelvin       : ", this.thermometer.kelvin);
-      console.log("--------------------------------------");
-
-      console.log("Barometer");
-      console.log("  pressure     : ", this.barometer.pressure);
-      console.log("--------------------------------------");
-
-      console.log("Hygrometer");
-      console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-      console.log("--------------------------------------");
     });
   };
 });
