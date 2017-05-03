@@ -32,7 +32,6 @@ board.on("ready", function () {
     controller: "BME280",
     freq: 4000
   });
-  new five.Sensors([ledGreen, ledYellow, ledRed, piezo, multi]);
   // board.repl.inject({
   //   piezo: piezo
   // });
