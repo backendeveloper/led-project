@@ -59,6 +59,26 @@ board.on("ready", function () {
       controller: "BME280",
       freq: _freq
     });
+    multi.on("data", function () {
+    console.log("Thermometer");
+    console.log("  celsius      : ", this.thermometer.celsius);
+    console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
+    console.log("  kelvin       : ", this.thermometer.kelvin);
+    console.log("--------------------------------------");
+
+    console.log("Barometer");
+    console.log("  pressure     : ", this.barometer.pressure);
+    console.log("--------------------------------------");
+
+    console.log("Hygrometer");
+    console.log("  humidity     : ", this.hygrometer.relativeHumidity);
+    console.log("--------------------------------------");
+
+    console.log("Altimeter");
+    console.log("  feet         : ", this.altimeter.feet);
+    console.log("  meters       : ", this.altimeter.meters);
+    console.log("--------------------------------------");
+  });
   }
 
   // var multi = new five.Multi({
@@ -68,7 +88,7 @@ board.on("ready", function () {
   // board.repl.inject({
   //   piezo: piezo
   // });
-  multis.call.multi.on("data", function () {
+  multi.on("data", function () {
     console.log("Thermometer");
     console.log("  celsius      : ", this.thermometer.celsius);
     console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
