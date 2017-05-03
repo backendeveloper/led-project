@@ -20,7 +20,7 @@ var counter = 0;
 var allCounter = 0;
 
 var board = new five.Board({
-  io: new Raspi()
+  io: new Raspi() 
 });
 
 board.on("ready", function () {
