@@ -19,7 +19,7 @@ var refAll = db.ref("lamp/all");
 var refFreq = db.ref("climate/frequency");
 var counter = 0;
 var allCounter = 0;
-var changedFreq = 5000;
+// var changedFreq = 5000;
 
 
 refFreq.on("child_changed", function (snapshot) {
@@ -47,7 +47,7 @@ board.on("ready", function () {
       // refFreq.on("child_changed", function (snapshot) {
       //   changedFreq = snapshot.val();
       // });
-      return changedFreq;
+      return 10000;
     }
   });
   // board.repl.inject({
