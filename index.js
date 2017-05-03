@@ -34,8 +34,7 @@ board.on("ready", function () {
   });
 
   board.repl.inject({
-    piezo: piezo,
-    multi: multi
+    piezo: piezo
   });
 
   // multi.on("data", function () {
