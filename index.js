@@ -43,7 +43,7 @@ board.on("ready", function () {
   var multi = new five.Multi({
     controller: "BME280",
     freq: function () {
-      return 10000;
+      10000;
     }
     // freq: function () {
     //   // var changedFreq = 10000;
