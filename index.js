@@ -37,13 +37,13 @@ board.on("ready", function () {
     controller: "BME280",
     freq: 3000
   });
-  var animation = new five.Animation(servo);
+  // var animation = new five.Animation(servo);
 
-  animation.enqueue({
-    cuePoints: [0, 0.25, 0.75, 1],
-    keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
-    duration: 5000
-  });
+  // animation.enqueue({
+  //   cuePoints: [0, 0.25, 0.75, 1],
+  //   keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
+  //   duration: 5000
+  // });
 
 
   // multi.on("change", function () {
