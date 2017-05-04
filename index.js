@@ -34,7 +34,7 @@ board.on("ready", function () {
   var piezo = new five.Piezo("P1-40");
   var servo = new five.Servo({
     pin: "P1-12",
-    startAt: 120
+    startAt: 0
   });
   var multi = new five.Multi({
 
