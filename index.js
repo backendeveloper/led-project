@@ -32,19 +32,23 @@ board.on("ready", function () {
   var ledYellow = new five.Led("P1-37");
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-40");
-  var servo = new five.Servo("P1-12");
+  var servo = new five.Servo({
+    pin: "P1-12",
+    startAt: 120
+  });
   var multi = new five.Multi({
+
     controller: "BME280",
     freq: 3000
   });
-  var animation = new five.Animation(servo);
+  // var animation = new five.Animation(servo);
 
-  animation.enqueue({
-    center: true
-    // cuePoints: [0, 0.25, 0.75, 1],
-    // keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
-    // duration: 1000
-  });
+  // animation.enqueue({
+  //   center: true
+  //   // cuePoints: [0, 0.25, 0.75, 1],
+  //   // keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
+  //   // duration: 1000
+  // });
 
 
   // multi.on("change", function () {
@@ -178,4 +182,8 @@ board.on("ready", function () {
   //   _freq = snapshot.val().value;
   //   multis(_freq);
   // });
+  board.repl.inject({
+    servo: servo,
+    animation: animation
+  });
 });
