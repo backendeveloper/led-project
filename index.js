@@ -31,8 +31,8 @@ board.on("ready", function () {
   var ledGreen = new five.Led("P1-11");
   var ledYellow = new five.Led("P1-37");
   var ledRed = new five.Led("P1-15");
-  var piezo = new five.Piezo("P1-12");
-  var servo = new five.Servo("P1-13");
+  var piezo = new five.Piezo("P1-40");
+  var servo = new five.Servo("P1-12");
   var multi = new five.Multi({
     controller: "BME280",
     freq: 3000
