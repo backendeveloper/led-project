@@ -32,15 +32,13 @@ board.on("ready", function () {
   var ledYellow = new five.Led("P1-13");
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
-  var servo = new five.Servo("P1-16");
+  var servo = new five.Servo("P1-18");
   var multi = new five.Multi({
     controller: "BME280",
     freq: 3000
   });
   var animation = new five.Animation(servo);
 
-  // Enqueue an animation segment with options param
-  // See Animation example and docs for details
   animation.enqueue({
     cuePoints: [0, 0.25, 0.75, 1],
     keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
