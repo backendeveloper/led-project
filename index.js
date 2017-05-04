@@ -17,9 +17,12 @@ var refKitchen = db.ref("lamp/kitchen");
 var refSaloon = db.ref("lamp/saloon");
 var refAll = db.ref("lamp/all");
 var refFreq = db.ref("climate/frequency");
+var refThermometer = db.ref("climate/thermometer");
+var refPressure = db.ref("climate/pressure");
+var refHumidity = db.ref("climate/humidity");
 var counter = 0;
 var allCounter = 0;
-var _freq = 5000;
+// var _freq = 5000;
 // var changedFreq = 5000;
 
 
@@ -49,7 +52,18 @@ board.on("ready", function () {
       controller: "BME280",
       freq: _freq
     });
-    multi.on("data", function () {
+    multi.on("change", function () {
+      refThermometer.update({
+        "celsius": this.thermometer.celsius,
+        "fahrenheit": this.thermometer.fahrenheit,
+        "kelvin": this.thermometer.kelvin
+      });
+      refPressure.update({
+        "value": this.barometer.pressure
+      });
+      refHumidity.update({
+        "value": this.hygrometer.relativeHumidity
+      });
       console.log("Thermometer");
       console.log("  celsius      : ", this.thermometer.celsius);
       console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
@@ -63,13 +77,7 @@ board.on("ready", function () {
       console.log("Hygrometer");
       console.log("  humidity     : ", this.hygrometer.relativeHumidity);
       console.log("--------------------------------------");
-
-      console.log("Altimeter");
-      console.log("  feet         : ", this.altimeter.feet);
-      console.log("  meters       : ", this.altimeter.meters);
-      console.log("--------------------------------------");
     });
-    multi.off();
   }
 
   // var multi = new five.Multi({
@@ -185,16 +193,16 @@ board.on("ready", function () {
     refAll.update({
       "led": 0
     });
-     refAll.update({
+    refAll.update({
       "led": 0
     });
-     refBathroom.update({
+    refBathroom.update({
       "led": 0
     });
-     refKitchen.update({
+    refKitchen.update({
       "led": 0
     });
-     refSaloon.update({
+    refSaloon.update({
       "led": 0
     });
   });
@@ -203,7 +211,7 @@ board.on("ready", function () {
     multis(_freq);
   });
 
-   refFreq.on("value", function (snapshot) {
+  refFreq.on("value", function (snapshot) {
     _freq = snapshot.val().value;
     multis(_freq);
   });
