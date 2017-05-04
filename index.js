@@ -45,40 +45,36 @@ board.on("ready", function () {
   var ledYellow = new five.Led("P1-13");
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
-  var multis = function (_freq) {
-    if (_freq == null || _freq === undefined)
-      var _freq = 1000;
-    var multi = new five.Multi({
-      controller: "BME280",
-      freq: 3000
+  var multi = new five.Multi({
+    controller: "BME280",
+    freq: 3000
+  });
+  multi.on("change", function () {
+    refThermometer.update({
+      "celsius": this.thermometer.celsius,
+      "fahrenheit": this.thermometer.fahrenheit,
+      "kelvin": this.thermometer.kelvin
     });
-    multi.on("change", function () {
-      refThermometer.update({
-        "celsius": this.thermometer.celsius,
-        "fahrenheit": this.thermometer.fahrenheit,
-        "kelvin": this.thermometer.kelvin
-      });
-      refPressure.update({
-        "value": this.barometer.pressure
-      });
-      refHumidity.update({
-        "value": this.hygrometer.relativeHumidity
-      });
-      console.log("Thermometer");
-      console.log("  celsius      : ", this.thermometer.celsius);
-      console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-      console.log("  kelvin       : ", this.thermometer.kelvin);
-      console.log("--------------------------------------");
-
-      console.log("Barometer");
-      console.log("  pressure     : ", this.barometer.pressure);
-      console.log("--------------------------------------");
-
-      console.log("Hygrometer");
-      console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-      console.log("--------------------------------------");
+    refPressure.update({
+      "value": this.barometer.pressure
     });
-  }
+    refHumidity.update({
+      "value": this.hygrometer.relativeHumidity
+    });
+    console.log("Thermometer");
+    console.log("  celsius      : ", this.thermometer.celsius);
+    console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
+    console.log("  kelvin       : ", this.thermometer.kelvin);
+    console.log("--------------------------------------");
+
+    console.log("Barometer");
+    console.log("  pressure     : ", this.barometer.pressure);
+    console.log("--------------------------------------");
+
+    console.log("Hygrometer");
+    console.log("  humidity     : ", this.hygrometer.relativeHumidity);
+    console.log("--------------------------------------");
+  });
 
   // var multi = new five.Multi({
   //   controller: "BME280",
@@ -206,15 +202,15 @@ board.on("ready", function () {
       "led": 0
     });
   });
-  refFreq.on("child_changed", function (snapshot) {
-    _freq = snapshot.val();
-    multis(_freq);
-  });
+  // refFreq.on("child_changed", function (snapshot) {
+  //   _freq = snapshot.val();
+  //   multis(_freq);
+  // });
 
-  refFreq.on("value", function (snapshot) {
-    _freq = snapshot.val().value;
-    multis(_freq);
-  });
+  // refFreq.on("value", function (snapshot) {
+  //   _freq = snapshot.val().value;
+  //   multis(_freq);
+  // });
 });
 
 
