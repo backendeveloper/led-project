@@ -24,7 +24,7 @@ var refFrontDoor = db.ref("doorAndWindow/frontDoor");
 var refDoorAndWindow = db.ref("doorAndWindow");
 var counter = 0;
 var allCounter = 0;
-
+var servoPower = 0;
 
 
 
@@ -48,23 +48,20 @@ board.on("ready", function () {
     freq: 3000
   });
 
-  // refFrontDoor.on("child_changed", function (snapshot) {
-  //   var changedPost = snapshot.val();
-  //   if (changedPost == 1) {
-  //     servo.to(180, 500);
-  //   } else {
-  //     servo.to(0, 500);
-  //   }
-  // });
-
   refDoorAndWindow.on("child_changed", function (snapshot) {
     var data = snapshot.val();
-    if (data.power == 1) {
-      servo.to(data.openDoor.degree, data.openDoor.speed);
-    } else {
-      servo.to(data.closeDoor.degree, data.closeDoor.speed);
+    if (data.power.value != servoPower) {
+      if (data.power.value == 1) {
+        servoPower = 1;
+        servo.to(data.openDoor.degree, data.openDoor.speed);
+      } else {
+        servoPower = 0;
+        servo.to(data.closeDoor.degree, data.closeDoor.speed);
+      }
     }
   });
+
+
 
   // multi.on("change", function () {
   //   refThermometer.update({
