@@ -42,7 +42,7 @@ board.on("ready", function () {
     freq: 3000
   });
 
- refFrontDoor.on("child_changed", function (snapshot) {
+  refFrontDoor.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
     if (changedPost == 1) {
       servo.to(180, 500);
@@ -180,6 +180,9 @@ board.on("ready", function () {
     });
     refSaloon.update({
       "led": 0
+    });
+    refFrontDoor.update({
+      "value": 0
     });
     servo.home();
   });
