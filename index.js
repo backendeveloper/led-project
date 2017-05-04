@@ -183,7 +183,7 @@ board.on("ready", function () {
   //   multis(_freq);
   // });
   board.repl.inject({
-    servo: servo,
-    animation: animation
+    servo: servo
+    // animation: animation
   });
 });
