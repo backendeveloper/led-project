@@ -47,7 +47,7 @@ board.on("ready", function () {
     if (changedPost == 1) {
       servo.to(180, 500);
     } else {
-      servo.home();
+      servo.to(0, 500);
     }
   });
   // var animation = new five.Animation(servo);
