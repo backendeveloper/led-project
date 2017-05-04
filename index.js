@@ -21,8 +21,14 @@ var refThermometer = db.ref("climate/thermometer");
 var refPressure = db.ref("climate/pressure");
 var refHumidity = db.ref("climate/humidity");
 var refFrontDoor = db.ref("doorAndWindow/frontDoor");
+var refDoorAndWindow = db.ref("doorAndWindow");
 var counter = 0;
 var allCounter = 0;
+
+
+
+
+
 
 var board = new five.Board({
   io: new Raspi()
@@ -42,23 +48,23 @@ board.on("ready", function () {
     freq: 3000
   });
 
-  refFrontDoor.on("child_changed", function (snapshot) {
-    var changedPost = snapshot.val();
-    if (changedPost == 1) {
-      servo.to(180, 500);
-    } else {
-      servo.to(0, 500);
-    }
-  });
-  // var animation = new five.Animation(servo);
-
-  // animation.enqueue({
-  //   center: true
-  //   // cuePoints: [0, 0.25, 0.75, 1],
-  //   // keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
-  //   // duration: 1000
+  // refFrontDoor.on("child_changed", function (snapshot) {
+  //   var changedPost = snapshot.val();
+  //   if (changedPost == 1) {
+  //     servo.to(180, 500);
+  //   } else {
+  //     servo.to(0, 500);
+  //   }
   // });
 
+  refDoorAndWindow.on("child_changed", function (snapshot) {
+    var data = snapshot.val();
+    if (data.power == 1) {
+      servo.to(data.openDoor.degree, data.openDoor.speed);
+    } else {
+      servo.to(data.closeDoor.degree, data.closeDoor.speed);
+    }
+  });
 
   // multi.on("change", function () {
   //   refThermometer.update({
