@@ -22,19 +22,6 @@ var refPressure = db.ref("climate/pressure");
 var refHumidity = db.ref("climate/humidity");
 var counter = 0;
 var allCounter = 0;
-// var _freq = 5000;
-// var changedFreq = 5000;
-
-
-// refFreq.on("child_changed", function (snapshot) {
-//   var changedPost = snapshot.val();
-// });
-
-// refFreq.on("value", function (snapshot) {
-//   var changedPost = snapshot.val().value;
-// });
-
-
 
 var board = new five.Board({
   io: new Raspi()
@@ -45,10 +32,22 @@ board.on("ready", function () {
   var ledYellow = new five.Led("P1-13");
   var ledRed = new five.Led("P1-15");
   var piezo = new five.Piezo("P1-12");
+  var servo = new five.Servo("P1-16");
   var multi = new five.Multi({
     controller: "BME280",
     freq: 3000
   });
+  var animation = new five.Animation(servo);
+
+  // Enqueue an animation segment with options param
+  // See Animation example and docs for details
+  animation.enqueue({
+    cuePoints: [0, 0.25, 0.75, 1],
+    keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
+    duration: 5000
+  });
+
+
   multi.on("change", function () {
     refThermometer.update({
       "celsius": this.thermometer.celsius,
@@ -61,48 +60,20 @@ board.on("ready", function () {
     refHumidity.update({
       "value": this.hygrometer.relativeHumidity
     });
-    console.log("Thermometer");
-    console.log("  celsius      : ", this.thermometer.celsius);
-    console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-    console.log("  kelvin       : ", this.thermometer.kelvin);
-    console.log("--------------------------------------");
+    // console.log("Thermometer");
+    // console.log("  celsius      : ", this.thermometer.celsius);
+    // console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
+    // console.log("  kelvin       : ", this.thermometer.kelvin);
+    // console.log("--------------------------------------");
 
-    console.log("Barometer");
-    console.log("  pressure     : ", this.barometer.pressure);
-    console.log("--------------------------------------");
+    // console.log("Barometer");
+    // console.log("  pressure     : ", this.barometer.pressure);
+    // console.log("--------------------------------------");
 
-    console.log("Hygrometer");
-    console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-    console.log("--------------------------------------");
+    // console.log("Hygrometer");
+    // console.log("  humidity     : ", this.hygrometer.relativeHumidity);
+    // console.log("--------------------------------------");
   });
-
-  // var multi = new five.Multi({
-  //   controller: "BME280",
-  //   freq: 1000
-  // });
-  // board.repl.inject({
-  //   piezo: piezo
-  // });
-  // multi.on("data", function () {
-  //   console.log("Thermometer");
-  //   console.log("  celsius      : ", this.thermometer.celsius);
-  //   console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-  //   console.log("  kelvin       : ", this.thermometer.kelvin);
-  //   console.log("--------------------------------------");
-
-  //   console.log("Barometer");
-  //   console.log("  pressure     : ", this.barometer.pressure);
-  //   console.log("--------------------------------------");
-
-  //   console.log("Hygrometer");
-  //   console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-  //   console.log("--------------------------------------");
-
-  //   console.log("Altimeter");
-  //   console.log("  feet         : ", this.altimeter.feet);
-  //   console.log("  meters       : ", this.altimeter.meters);
-  //   console.log("--------------------------------------");
-  // });
 
   refAll.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
@@ -189,9 +160,6 @@ board.on("ready", function () {
     refAll.update({
       "led": 0
     });
-    refAll.update({
-      "led": 0
-    });
     refBathroom.update({
       "led": 0
     });
@@ -212,48 +180,3 @@ board.on("ready", function () {
   //   multis(_freq);
   // });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// board.on("ready", function () {
-//   var multi = new five.Multi({
-//     controller: "BME280"
-//   });
-
-//   multi.on("data", function () {
-//     console.log("Thermometer");
-//     console.log("  celsius      : ", this.thermometer.celsius);
-//     console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-//     console.log("  kelvin       : ", this.thermometer.kelvin);
-//     console.log("--------------------------------------");
-
-//     console.log("Barometer");
-//     console.log("  pressure     : ", this.barometer.pressure);
-//     console.log("--------------------------------------");
-
-//     console.log("Hygrometer");
-//     console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-//     console.log("--------------------------------------");
-
-//     console.log("Altimeter");
-//     console.log("  feet         : ", this.altimeter.feet);
-//     console.log("  meters       : ", this.altimeter.meters);
-//     console.log("--------------------------------------");
-//   });
-// });
