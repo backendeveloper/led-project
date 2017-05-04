@@ -50,7 +50,7 @@ board.on("ready", function () {
       var _freq = 1000;
     var multi = new five.Multi({
       controller: "BME280",
-      freq: _freq
+      freq: 3000
     });
     multi.on("change", function () {
       refThermometer.update({
