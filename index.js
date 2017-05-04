@@ -40,9 +40,10 @@ board.on("ready", function () {
   var animation = new five.Animation(servo);
 
   animation.enqueue({
-    cuePoints: [0, 0.25, 0.75, 1],
-    keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
-    duration: 1000
+    center: true
+    // cuePoints: [0, 0.25, 0.75, 1],
+    // keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
+    // duration: 1000
   });
 
 
