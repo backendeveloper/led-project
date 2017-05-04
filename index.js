@@ -44,7 +44,7 @@ board.on("ready", function () {
   var piezo = new five.Piezo("P1-12");
   var multis = function (_freq) {
     if (_freq == null || _freq === undefined)
-      var _freq = 5000;
+      var _freq = 1000;
     var multi = new five.Multi({
       controller: "BME280",
       freq: _freq
@@ -69,6 +69,7 @@ board.on("ready", function () {
       console.log("  meters       : ", this.altimeter.meters);
       console.log("--------------------------------------");
     });
+    multi.off();
   }
 
   // var multi = new five.Multi({
@@ -182,6 +183,18 @@ board.on("ready", function () {
 
   this.on("exit", function () {
     refAll.update({
+      "led": 0
+    });
+     refAll.update({
+      "led": 0
+    });
+     refBathroom.update({
+      "led": 0
+    });
+     refKitchen.update({
+      "led": 0
+    });
+     refSaloon.update({
       "led": 0
     });
   });
