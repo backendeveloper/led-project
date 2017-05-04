@@ -20,6 +20,7 @@ var refFreq = db.ref("climate/frequency");
 var refThermometer = db.ref("climate/thermometer");
 var refPressure = db.ref("climate/pressure");
 var refHumidity = db.ref("climate/humidity");
+var refFrontDoor = db.ref("doorAndWindow/frontDoor");
 var counter = 0;
 var allCounter = 0;
 
@@ -34,12 +35,20 @@ board.on("ready", function () {
   var piezo = new five.Piezo("P1-40");
   var servo = new five.Servo({
     pin: "P1-12",
-    type: "continuous"
+    startAt: 0
   });
   var multi = new five.Multi({
-
     controller: "BME280",
     freq: 3000
+  });
+
+ refFrontDoor.on("child_changed", function (snapshot) {
+    var changedPost = snapshot.val();
+    if (changedPost == 1) {
+      servo.to(180, 500);
+    } else {
+      servo.home();
+    }
   });
   // var animation = new five.Animation(servo);
 
@@ -172,6 +181,7 @@ board.on("ready", function () {
     refSaloon.update({
       "led": 0
     });
+    servo.home();
   });
   // refFreq.on("child_changed", function (snapshot) {
   //   _freq = snapshot.val();
