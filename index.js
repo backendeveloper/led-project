@@ -26,10 +26,6 @@ var counter = 0;
 var allCounter = 0;
 var servoPower = 0;
 
-
-
-
-
 var board = new five.Board({
   io: new Raspi()
 });
@@ -60,35 +56,33 @@ board.on("ready", function () {
       }
     }
   });
+  
+  multi.on("change", function () {
+    refThermometer.update({
+      "celsius": this.thermometer.celsius,
+      "fahrenheit": this.thermometer.fahrenheit,
+      "kelvin": this.thermometer.kelvin
+    });
+    refPressure.update({
+      "value": this.barometer.pressure
+    });
+    refHumidity.update({
+      "value": this.hygrometer.relativeHumidity
+    });
+    // console.log("Thermometer");
+    // console.log("  celsius      : ", this.thermometer.celsius);
+    // console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
+    // console.log("  kelvin       : ", this.thermometer.kelvin);
+    // console.log("--------------------------------------");
 
+    // console.log("Barometer");
+    // console.log("  pressure     : ", this.barometer.pressure);
+    // console.log("--------------------------------------");
 
-
-  // multi.on("change", function () {
-  //   refThermometer.update({
-  //     "celsius": this.thermometer.celsius,
-  //     "fahrenheit": this.thermometer.fahrenheit,
-  //     "kelvin": this.thermometer.kelvin
-  //   });
-  //   refPressure.update({
-  //     "value": this.barometer.pressure
-  //   });
-  //   refHumidity.update({
-  //     "value": this.hygrometer.relativeHumidity
-  //   });
-  //   // console.log("Thermometer");
-  //   // console.log("  celsius      : ", this.thermometer.celsius);
-  //   // console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-  //   // console.log("  kelvin       : ", this.thermometer.kelvin);
-  //   // console.log("--------------------------------------");
-
-  //   // console.log("Barometer");
-  //   // console.log("  pressure     : ", this.barometer.pressure);
-  //   // console.log("--------------------------------------");
-
-  //   // console.log("Hygrometer");
-  //   // console.log("  humidity     : ", this.hygrometer.relativeHumidity);
-  //   // console.log("--------------------------------------");
-  // });
+    // console.log("Hygrometer");
+    // console.log("  humidity     : ", this.hygrometer.relativeHumidity);
+    // console.log("--------------------------------------");
+  });
 
   refAll.on("child_changed", function (snapshot) {
     var changedPost = snapshot.val();
