@@ -4,11 +4,11 @@ var five = require("johnny-five");
 var Raspi = require("raspi-io");
 var admin = require("firebase-admin");
 
-var serviceAccount = require("./smarthome-d94d7-firebase-adminsdk-bw5qa-60aedc44f9");
+var serviceAccount = require("./smarthome-e9e57-firebase-adminsdk-3j0s6-4e00566a10");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://smarthome-d94d7.firebaseio.com"
+  databaseURL: "https://smarthome-e9e57.firebaseio.com"
 });
 
 var db = admin.database();
