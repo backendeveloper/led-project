@@ -12,16 +12,16 @@ admin.initializeApp({
 });
 
 var db = admin.database();
-var refBathroom = db.ref("lamp/bathroom");
-var refKitchen = db.ref("lamp/kitchen");
-var refSaloon = db.ref("lamp/saloon");
-var refAll = db.ref("lamp/all");
-var refFreq = db.ref("climate/frequency");
-var refThermometer = db.ref("climate/thermometer");
-var refPressure = db.ref("climate/pressure");
-var refHumidity = db.ref("climate/humidity");
-var refFrontDoor = db.ref("doorAndWindow/frontDoor");
-var refDoorAndWindow = db.ref("doorAndWindow");
+var refBathroom = db.ref("server/lamp/bathroom");
+var refKitchen = db.ref("server/lamp/kitchen");
+var refSaloon = db.ref("server/lamp/saloon");
+var refAll = db.ref("server/lamp/all");
+var refFreq = db.ref("server/climate/frequency");
+var refThermometer = db.ref("server/climate/thermometer");
+var refPressure = db.ref("server/climate/pressure");
+var refHumidity = db.ref("server/climate/humidity");
+var refFrontDoor = db.ref("server/doorAndWindow/frontDoor");
+var refDoorAndWindow = db.ref("server/doorAndWindow");
 var counter = 0;
 var allCounter = 0;
 var servoPower = 0;
